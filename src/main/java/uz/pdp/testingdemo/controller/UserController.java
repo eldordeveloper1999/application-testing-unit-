@@ -24,4 +24,9 @@ public class UserController {
     public HttpEntity saveUser(@RequestBody User user) {
         return userService.save(user);
     }
+
+    @PutMapping("/{userId}")
+    public HttpEntity updateUser(@RequestBody User user, @PathVariable String userId) {
+        return userService.update(user);
+    }
 }

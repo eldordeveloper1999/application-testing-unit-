@@ -27,8 +27,8 @@ class UserRepositoryTest {
 
         Boolean actualValue = userRepository.existsByUsername(username);
 
-//        assertTrue(actualValue);
+        assertTrue(actualValue);
 
-        assertThat(actualValue).isTrue();
+//        assertThat(actualValue).isTrue();
     }
 }

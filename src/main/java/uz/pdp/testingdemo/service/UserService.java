@@ -14,12 +14,18 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public HttpEntity getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
     public HttpEntity save(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
+        Boolean existsByUsername = userRepository.existsByUsername(user.getUsername());
+
+        if (existsByUsername) {
             throw new IllegalStateException(user.getName()+ "is already taken");
         }
 
@@ -27,4 +33,18 @@ public class UserService {
 
         return ResponseEntity.ok("Saved ...");
     }
+
+
+    public HttpEntity update(User user) {
+        userRepository.save(user);
+        return ResponseEntity.ok("Updated ...");
+    }
+
+    public HttpEntity deleteUser(Integer id) {
+        userRepository.existsById(id);
+
+        userRepository.deleteById(id);
+        return ResponseEntity.ok("Deleted ...");
+    }
+
 }
